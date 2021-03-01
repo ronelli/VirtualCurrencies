@@ -281,9 +281,7 @@ const MAX_CHECKED_COINS = 5;
         axisY: {
             title: "Currencies Value (Dollars)",
             titleFontColor: "#4F81BC",
-            // lineColor: "#4F81BC",
             labelFontColor: "#4F81BC",
-            // tickColor: "#4F81BC"
         },
         toolTip: { shared: true },
         legend: { cursor: "pointer" },
@@ -309,6 +307,7 @@ const MAX_CHECKED_COINS = 5;
         const today = new Date();
         return new Date(today.getFullYear(),today.getMonth() + 1,today.getDay(),today.getHours(),today.getMinutes(),today.getSeconds())
     }
+    
     function updateDollarValues(chart) {
         liveReportTimer = setInterval(async () => {
             const coinsDollarCost = await getDollarValueAsync();
