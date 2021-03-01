@@ -51,13 +51,13 @@ h1 {
 }
 
 #nav-about {
-    width: 700px;
+    /* width: 700px; */
     text-align: center;
     margin: 0 auto;
     font-size: 26px;
 }
 #nav-about > * {
-    width: 100%;
+    /* width: 100%; */
 }
 #nav-about > h2 {
     margin: 20px 0px;
@@ -69,17 +69,11 @@ h1 {
 }
 
 #coinsContent {
-    /* text-align: center; */
-}
-
-#coinsContent {
     display: flex;
     grid-template-columns: repeat(4, 1fr);
-    /* grid-template-rows: repeat(3fr,2); */
     flex-wrap: wrap;
-    /* justify-content: stretch; */
-
 }
+
 #coinsContent > * {
     display:inline-block;
 }
