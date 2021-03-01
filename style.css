@@ -1,0 +1,142 @@
+
+
+html, body {
+    height: 100%;
+}
+
+body {
+    /* background-image: url("assets/images/photo-1543699539-33a389c5dcfe.jfif"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax {
+    background-image: url("assets/images/bitcoin.jpg");
+  /* Image height */
+  height: 40%;
+  /* Create the parallax scrolling effect */
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.712) 0%,rgba(255,255,255,0.2) 100%), url("assets/images/bitcoin.jpg");
+}
+
+
+
+h1 {
+    position:relative;
+    text-align: center;
+    margin: 4px auto;
+    font-family: headerFont;
+    top: 30%; 
+    opacity:0.7;
+    color:black;
+}
+
+@font-face {
+    src: url('assets/fonts/Vollkorn-Italic-VariableFont_wght.ttf');
+    font-family: headerFont;
+}
+
+.searchBox {
+    margin-left: 10px;
+}
+.color-me {
+    color:black;
+}
+.nav-item {
+    margin-left: 30px;
+}
+
+#nav-about {
+    width: 700px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 26px;
+}
+#nav-about > * {
+    width: 100%;
+}
+#nav-about > h2 {
+    margin: 20px 0px;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+#nav-about > hr {
+    margin: 20px 0px;
+}
+
+#coinsContent {
+    /* text-align: center; */
+}
+
+#coinsContent {
+    display: flex;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-template-rows: repeat(3fr,2); */
+    flex-wrap: wrap;
+    /* justify-content: stretch; */
+
+}
+#coinsContent > * {
+    display:inline-block;
+}
+.card {
+    margin: 5px;
+    text-align: center;
+    border: 2px solid gray;
+}
+.card-text {
+    font-size: 12px;
+}
+.card-body > button{
+    position: relative;
+    top: 10px;
+}
+table {
+    margin: 30px auto;
+}
+
+.spinner-border {
+    margin-top: 15px;
+}
+
+#nav-tab {
+    color:black;
+}
+
+nav  {
+    background-image: linear-gradient(10deg, rgb(248, 248, 248),rgb(178, 235, 235),#80c3fa);
+}
+
+/* toggle switch */
+.form-switch {
+    position: relative;
+    left: 80%;
+}
+
+#list-tab > * { 
+    text-align: center;
+}
+
+#myPic {
+    width: 180px;
+    margin: 50px auto;
+    box-shadow: 1px 1px 30px black;
+    border-radius: 10px;
+    border: 2px solid whitesmoke;
+}
+
+#nav-profile > * { 
+    margin: 50px auto;
+    width: 800px;
+}
+
+
+#alertNoneReportCoins {
+    width: 25%;
+    text-align: center;
+    margin: 0 auto;
+}

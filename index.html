@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+        <!-- <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script> -->
+        <script src="jquery-3.5.1.js"></script>
+        <script defer src="main.js"></script>
+        <link rel="icon" type="image/x-icon" href="assets/images/favicon2.ico">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <nav class="container-fluid">
+                <div class="nav nav-tabs py-4" id="nav-tab" role="tablist">
+                    <a class="navbar-brand generalInfo color-me" href="#nav-home">Virtual Coins <i class="fas fa-coins"></i></a>
+                    <a class="nav-link active generalInfo color-me" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                    <a class="nav-link color-me" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Live Reports</a>
+                    <a class="nav-link generalInfo color-me" id="nav-about-tab" data-bs-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">About</a>
+                    <form class="d-flex">
+                        <input class="form-control me-2 searchBox" type="search" placeholder="Search Coins" aria-label="Search" >
+                    </form>
+                </div>
+        </nav>
+        
+        <div class=" container-fluid parallax">
+            <h1 class="display-2">Virtual Currencies </h1>
+        </div>
+
+        <div class="alert alert-danger collapse" id="alertNoneReportCoins">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            A simple danger alert—check it out!
+        </div>
+        <section class="container">
+
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active container-fluid" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div id="coinsContent"></div></div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div id="chartContainer"></div>
+                </div>
+                <div class="tab-pane fade col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                    <h2>About Me</h2>
+                    <p>My name is Ron Elli.<br>I'm 28 years old, I served in the IDF for the last six years. Holds a bachelor's degree in human resources and also a master's degree in consulting and organizational development.</p>
+                    <hr>
+                    <p>During the last year, I've started learning programming.</p>
+                    <hr>
+                    <p>I love to be challenged and learn new things, and I'm highly motivated to success!</p>
+                    <img id="myPic" src="assets/images/cv.jpg">
+                </div>
+            </div>
+            <div id="modelBox"></div>
+        </section>
+
+        <script defer src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    </body>
+</html>
