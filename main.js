@@ -14,7 +14,6 @@ const MAX_CHECKED_COINS = 5;
         try {
             const allCoins = await getCoinsListFromAjax();
             displayAllCoins(allCoins);
-            // updateSavedDataExpiry();
         }
         catch (err) {
             alert("Error: " + err);
@@ -22,7 +21,7 @@ const MAX_CHECKED_COINS = 5;
     });
     function displayAllCoins(coinsList) {
         for(let i = 1; i <= 100; i++) {
-            const singleCoin = `<div class="card col-12 col-sm-5 col-md-3 col-lg-2 " value="${coinsList[i].symbol}">
+            const singleCoin = `<div class="card col-12 col-md-5 col-lg-3" value="${coinsList[i].symbol}">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="switch${coinsList[i].symbol}" value="${coinsList[i].symbol}" data-bs-container="body" data-bs-toggle="popover" title="Add / Remove coin in 'Live Report'">
                                     </div>
@@ -204,27 +203,24 @@ const MAX_CHECKED_COINS = 5;
         state.checked.splice(indexInArray, 1);
     }
     
-    // function arrangeRelevantCoins() {
-        
-    // }
     $(".searchBox").keyup(function (){
-        const value = $(this).val();
-        $("#coinsContent").toggle(value === "");
-        const allCoins = [];
-        $(state.coins).each(index => {
-            allCoins.push(state.coins[index]);
-        })
-        const searchedCoins = allCoins.filter(coinFormat => {
-            const coinSymbol = $(coinFormat).find(".card-title").text();
-            for(let i = 0; i < value.length; i++) {
-                if(coinSymbol[i] !== value[i]) {
-                    return false;
-                }
-            }
-            return true;
+        const inputValue = $(this).val().toUpperCase();
+        $("#coinsContent").toggle(inputValue === "");
+        const searchedCoins = state.coins.filter(coinFormat => {
+            const coinSymbol = $(coinFormat).find(".card-title").text().toUpperCase();
+            return isInputIncludesCoinSymbol(inputValue, coinSymbol);
         });
         displaySearchedCoins(searchedCoins);     
     });
+    
+    function isInputIncludesCoinSymbol(inputValue, coinSymbol) {
+        for(let i = 0; i < inputValue.length; i++) {
+            if(coinSymbol[i] !== inputValue[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     function displaySearchedCoins(searchedCoins) {
         $("#coinsContent").empty();

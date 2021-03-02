@@ -1,17 +1,9 @@
-
-
 html, body {
     height: 100%;
 }
 
-body {
-    /* background-image: url("assets/images/photo-1543699539-33a389c5dcfe.jfif"); */
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 .parallax {
-    background-image: url("assets/images/bitcoin.jpg");
+    /* background-image: url("assets/images/bitcoin.jpg"); */
   /* Image height */
   height: 40%;
   /* Create the parallax scrolling effect */
@@ -20,15 +12,13 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.712) 0%,rgba(255,255,255,0.2) 100%), url("assets/images/bitcoin.jpg");
+  background-image: linear-gradient( rgba(255, 255, 255, 0.712) 0%,rgba(255,255,255,0.2) 100%), url("assets/images/bitcoin.jpg");
 }
-
-
 
 h1 {
     position:relative;
     text-align: center;
-    margin: 4px auto;
+    margin: 3px auto;
     font-family: headerFont;
     top: 30%; 
     opacity:0.7;
@@ -43,9 +33,11 @@ h1 {
 .searchBox {
     margin-left: 10px;
 }
+
 .color-me {
     color:black;
 }
+
 .nav-item {
     margin-left: 30px;
 }
@@ -53,13 +45,15 @@ h1 {
 #nav-about {
     text-align: center;
     margin: 0 auto;
+    font-family: headerFont;
     font-size: 26px;
 }
 
 #nav-about > h2 {
+    font-family: headerFont;
     font-size: 36px;
     margin: 20px 0px;
-    font-weight: bolder;
+    font-weight: bold;
     text-decoration: underline;
 }
 #nav-about > hr {
@@ -76,9 +70,8 @@ h1 {
     display:inline-block;
 }
 .card {
-    margin: 5px;
     text-align: center;
-    border: 2px solid gray;
+    border: 1px solid gray;
 }
 .card-text {
     font-size: 12px;
@@ -87,31 +80,30 @@ h1 {
     position: relative;
     top: 10px;
 }
+
+/* position content of 'More Info' data in center */
 table {
     margin: 30px auto;
 }
 
+/* position spinner */
 .spinner-border {
     margin-top: 15px;
 }
 
-#nav-tab {
-    color:black;
-}
-
-nav  {
-    background-image: linear-gradient(10deg, rgb(248, 248, 248),rgb(178, 235, 235),#80c3fa);
-}
-
-/* toggle switch */
+/* position toggle switch */
 .form-switch {
     position: relative;
     left: 80%;
 }
 
-/* place in the center all coins in the model message */
+/* position content of model message in center */
 #list-tab > * { 
     text-align: center;
+}
+
+nav  {
+    background-image: linear-gradient(10deg, rgb(248, 248, 248),rgb(178, 235, 235),#80c3fa);
 }
 
 #myPic {
