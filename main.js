@@ -1,24 +1,30 @@
 /// <reference path="jquery-3.5.1.js" />
 "use strict";
 
+//global variables: 
+//Magic number
+const MAX_CHECKED_COINS = 5;
+//object that includes array of all coins, and array of 'checked' coins 
 const state = {
     coins: [],
     checked: []
 };
+
+//chart - for creating chart(chart), liveReportTimer - for getting id of interval.
 let chart, liveReportTimer;
-const MAX_CHECKED_COINS = 5;
 
-
-(()=> {
+$(()=> {
     $(document).ready(async function () {
         try {
-            const allCoins = await getCoinsListFromAjax();
+            const allCoins = await getCoinsListFromAjaxAsync();
             displayAllCoins(allCoins);
         }
         catch (err) {
             alert("Error: " + err);
         }
     });
+
+    //Display all coins onscreen.
     function displayAllCoins(coinsList) {
         for(let i = 1; i <= 100; i++) {
             const singleCoin = `<div class="card col-12 col-md-5 col-lg-3" value="${coinsList[i].symbol}">
@@ -37,14 +43,15 @@ const MAX_CHECKED_COINS = 5;
             $("#coinsContent").append(singleCoin);
         }
     }
-    //import all coins list from API(using Ajax).
-    function getCoinsListFromAjax() {
+    
+    //import all coins list from API(using ajax).
+    function getCoinsListFromAjaxAsync() {
         return $.ajax({
             url: ("https://api.coingecko.com/api/v3/coins/list"),
         });
     }
 
-    //get more info about specific coin.
+    //event for each click on 'More info' button 
     $('#coinsContent').on("click",".btn-info", function() {
         try {
             getCoinData(this);
@@ -54,42 +61,46 @@ const MAX_CHECKED_COINS = 5;
         }
     });
     
-    function getCoinData(obj) {
-        $(obj).next().on('shown.bs.collapse',async function () {
-            const idBox = $(obj).attr('id');
-            if(dataExistInMemory(idBox)){
-                const coinMemoryDetails = getDetailsFromMemory(idBox);
-                displayMoreInfoCoinDetails(coinMemoryDetails,obj);
+    //Get coin data of clicked coin.
+    function getCoinData(coinObject) {
+        $(coinObject).next().on('shown.bs.collapse',async function () {
+            const coinSymbol = $(coinObject).attr('id');
+            if(dataExistInMemory(coinSymbol)){
+                const coinMemoryDetails = getDetailsFromMemory(coinSymbol);
+                displayMoreInfoCoinDetails(coinMemoryDetails,coinObject);
             }
             else {
-                const coinAjaxDetails = await getCoinDetails(idBox);
-                displayProgressBar(obj);
-                saveInMemory(coinAjaxDetails);
-                displayMoreInfoCoinDetails(coinAjaxDetails,obj);
+                const coinAjaxDetails = await getCoinDetails(coinSymbol);
+                displayProgressBar(coinObject);
+                saveCoinObjInMemory(coinAjaxDetails);
+                displayMoreInfoCoinDetails(coinAjaxDetails,coinObject);
             }     
         });
     }
 
-    function dataExistInMemory(idBox) {
-        return (sessionStorage.getItem(idBox) === null) ? false: true;
-    }
-    
-    function getDetailsFromMemory(idBox) {
-        const obj = sessionStorage.getItem(idBox);
-        return JSON.parse(obj);
+    //check if coin is saved in session storage.
+    function dataExistInMemory(coinSymbol) {
+        return (sessionStorage.getItem(coinSymbol) === null) ? false: true;
     }
 
-    function saveInMemory(coinAjaxDetails) {
-        const json = JSON.stringify(coinAjaxDetails);
-        sessionStorage.setItem(coinAjaxDetails.id,json);
+    //Get coin details from session storage.
+    function getDetailsFromMemory(coinSymbol) {
+        const coinObject = sessionStorage.getItem(coinSymbol);
+        return $.parseJSON(coinObject);
+    }
+
+    //Save coin object details in session storage
+    function saveCoinObjInMemory(coinAjaxDetails) {
+        const coinObject = JSON.stringify(coinAjaxDetails);
+        sessionStorage.setItem(coinAjaxDetails.id,coinObject);
         setTimeout(() => {
             sessionStorage.removeItem(coinAjaxDetails.id);
         },1000 * 120)
     }
 
     //waiting icon - progress bar while waiting for getting coin details.
-    function displayProgressBar(obj) {
-        $(obj).next().html(
+    function displayProgressBar(coinObject) {
+        $(coinObject).next().html(
             `<div class="d-flex justify-content-center">
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -97,13 +108,15 @@ const MAX_CHECKED_COINS = 5;
             </div>`);
     }
 
-    function getCoinDetails(idBox) {
+    //import specific coin from API(using Ajax). 
+    function getCoinDetails(coinSymbol) {
         return  $.ajax({
-            url:(`https://api.coingecko.com/api/v3/coins/${idBox}`)
+            url:(`https://api.coingecko.com/api/v3/coins/${coinSymbol}`)
         });
     };
 
-    function displayMoreInfoCoinDetails(coinDetails, currentObj) {
+    //display 'More Info' data of specific coin.
+    function displayMoreInfoCoinDetails(coinDetails, currentCoinObject) {
             const infoAboutCoin = 
             `<table>
                 <thead>
@@ -117,27 +130,20 @@ const MAX_CHECKED_COINS = 5;
                 </tbody>
             </table>`;
             setTimeout(() => {
-                $(currentObj).next().html(infoAboutCoin);
+                $(currentCoinObject).next().html(infoAboutCoin);
             }, 1500);
     }
     
-
-    $('#coinsContent').on("mouseover",".form-check-input", function() {
-        // $(this).attr({});
-    });
-
+    //On click event - when 'toggle button' button is clicked.
     $('#coinsContent').on("click",".form-check-input", function() {
         const symbol = $(this).val();
         toggleCoin(symbol);
-        // if ($(this).is(':checked',false)) { //check debug
-        //     console.log(state.checked);
-        // }
-
     });
 
+    // Toggle selected coin.
     function toggleCoin(symbol) {
         if (state.checked.includes(symbol)) {
-            removeCoinFromReportList(symbol);
+            removeCoinFromToggleArr(symbol);
         } 
         else {
             if (state.checked.length < MAX_CHECKED_COINS) {
@@ -149,6 +155,7 @@ const MAX_CHECKED_COINS = 5;
         }
     }
 
+    //display modal onscreen
     function displayModal(symbol) {
         $("#modalBox").html(
             `<div class="modal" tabindex="-1">
@@ -182,28 +189,33 @@ const MAX_CHECKED_COINS = 5;
             $('.modal').fadeIn(500).modal('show');
     }
 
+    //On click event - on cancel action when modal display.
     $("#modalBox").on("click",".cancelAction",function() {
         turnOffToggleButton($(this).val());
     })
 
+    //On click event - on submit action when modal display.
     $("#modalBox").on("click",".btn-primary", function() {
         const newCoin = $(this).val();
         const selectedCoinTag = $(this).parent().parent().find(".active")[0];
         const coinToRemove = $(selectedCoinTag).attr("value");
-        removeCoinFromReportList(coinToRemove);
+        removeCoinFromToggleArr(coinToRemove);
         turnOffToggleButton(coinToRemove);
         state.checked.push(newCoin);
     })
     
+    //internal function - turn off toggle button.
     function turnOffToggleButton(coinSymbol) {
         $(`#switch${coinSymbol}`).prop("checked",false);
     }
 
-    function removeCoinFromReportList(symbol) {
+    //internal function - remove toggle button from checked coins array.
+    function removeCoinFromToggleArr(symbol) {
         const indexInArray = state.checked.findIndex(index => index === symbol);
         state.checked.splice(indexInArray, 1);
     }
     
+    //On key up event -  when writing inside input search button.
     $(".searchBox").keyup(function (){
         const inputValue = $(this).val().toUpperCase();
         $("#coinsContent").toggle(inputValue === "");
@@ -214,6 +226,7 @@ const MAX_CHECKED_COINS = 5;
         displaySearchedCoins(searchedCoins);     
     });
     
+    //Checks if input is equal to coin symbol.
     function isInputIncludesCoinSymbol(inputValue, coinSymbol) {
         for(let i = 0; i < inputValue.length; i++) {
             if(coinSymbol[i] !== inputValue[i]) {
@@ -222,35 +235,25 @@ const MAX_CHECKED_COINS = 5;
         }
         return true;
     }
-
+    //Display searched coins.
     function displaySearchedCoins(searchedCoins) {
         $("#coinsContent").empty();
         for(const coin of searchedCoins) {
             $("#coinsContent").append(coin);
         }
-        updateCoinReportStatus(searchedCoins);
+        updateCoinCheckedStatus(searchedCoins);
         $("#coinsContent").show();
     }
 
-    function updateCoinReportStatus(searchedCoins) {
+    //Update toggle status of each coin that inside checked coins array.
+    function updateCoinCheckedStatus(searchedCoins) {
         $(state.checked).each(index => $(`#coinsContent :input[value="${state.checked[index]}"]`).prop("checked",true));
     }
 
-    // $(".searchBox").click(function() {
-    //     alert("a");
-    // })
-    // $(".searchBox").on("search", function(event) {
-    //     if(event.keyCode === 13){
-    //         event.preventDefault();
-    //     }
-    //     else {
-    //         $("#coinsContent").show();
-    //     }
-    // });
-
+    //On click event - when trying to get 'Live Reports'.
     $("#nav-profile-tab").on("click",async () => {
         try {
-            const coinsDollarCost = await getDollarValueAsync();
+            const coinsDollarCost = await getCheckedCoinsDollarValueAsync();
             if(coinsDollarCost.Response === "Error"){
                 throw "You have to select at least one coin!";
             }
@@ -263,6 +266,7 @@ const MAX_CHECKED_COINS = 5;
         }
     })
 
+    //Building format of a chart - include it's features.
     function drawChart(coinsDollarCost) {
         chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
@@ -287,6 +291,7 @@ const MAX_CHECKED_COINS = 5;
         return chart;
     }
 
+    //Creating single coin data - part of the chart data 
     function createPointsOfSelectedCoins(coinsDollarCost) {
         const pointsArray = [];
         $(state.checked).each(index => {
@@ -300,14 +305,16 @@ const MAX_CHECKED_COINS = 5;
         return pointsArray;
     }
 
+    //Getting current time.
     function getCurrentTime() {
         const today = new Date();
-        return new Date(today.getFullYear(),today.getMonth() + 1,today.getDay(),today.getHours(),today.getMinutes(),today.getSeconds())
+        return new Date(today.getFullYear(),today.getMonth(),today.getDay(),today.getHours(),today.getMinutes(),today.getSeconds())
     }
     
+    //Update values inside the the chart - set interval.
     function updateDollarValues(chart) {
         liveReportTimer = setInterval(async () => {
-            const coinsDollarCost = await getDollarValueAsync();
+            const coinsDollarCost = await getCheckedCoinsDollarValueAsync();
             $(chart.data).each(index => {
                 chart.data[index].dataPoints.push( { x: getCurrentTime(),  y: coinsDollarCost[state.checked[index].toUpperCase()].USD })
             })
@@ -315,12 +322,14 @@ const MAX_CHECKED_COINS = 5;
         }, 2000);
     };
     
-    function getDollarValueAsync() {
+    //Getting coins dollar value from API - ajax
+    function getCheckedCoinsDollarValueAsync() {
         return $.ajax({
             url: (`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${state.checked[0]},${state.checked[1]},${state.checked[2]},${state.checked[3]},${state.checked[4]},&tsyms=USD`),
         });
     }
 
+    //On click event - when user decide to go to home/about page - clears existing chart!
     $(".generalInfo").on("click", () => {
         if(chart !== undefined){
             clearInterval(liveReportTimer);
@@ -329,5 +338,4 @@ const MAX_CHECKED_COINS = 5;
         };
         $("#alertNoneReportCoins").hide()  
     });
-
-})();
+});

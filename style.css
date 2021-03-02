@@ -2,6 +2,11 @@ html, body {
     height: 100%;
 }
 
+@font-face {
+    src: url('assets/fonts/Vollkorn-Italic-VariableFont_wght.ttf');
+    font-family: headerFont;
+}
+
 .parallax {
     /* Image height */
     height: 40%;
@@ -14,6 +19,7 @@ html, body {
     background-image: linear-gradient( rgba(255, 255, 255, 0.712) 0%,rgba(255,255,255,0.2) 100%), url("assets/images/bitcoin.jpg");
 }
 
+/* Title - 'Virtual Currencies' */
 h1 {
     position:relative;
     text-align: center;
@@ -24,63 +30,33 @@ h1 {
     color:black;
 }
 
-@font-face {
-    src: url('assets/fonts/Vollkorn-Italic-VariableFont_wght.ttf');
-    font-family: headerFont;
-}
-
+/* search input */
 .searchBox {
     margin-left: 10px;
 }
 
+/* change color of all nav links */
 .color-me {
     color:black;
 }
 
-.nav-item {
-    margin-left: 30px;
-}
-
-#nav-about {
-    text-align: center;
-    margin: 0 auto;
-    font-family: headerFont;
-    font-size: 26px;
-}
-
-h2 {
-    font-family: headerFont;
-    font-size: 36px;
-    margin: 20px 0px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-hr {
-    margin: 40px 0px;
-}
-
-.carousel-indicators button{
-    min-width: 140px;
-    /* height: 40px; */
-    margin:0px 50px 20px 50px;
-}
-
+/* display flex coins onscreen */
 #coinsContent {
     display: flex;
     grid-template-columns: repeat(4, 1fr);
     flex-wrap: wrap;
 }
 
-#coinsContent > * {
-    display:inline-block;
-}
+/* styling each card */
 .card {
     text-align: center;
     border: 1px solid gray;
 }
+
 .card-text {
     font-size: 12px;
 }
+
 .card-body > button{
     position: relative;
     top: 10px;
@@ -107,10 +83,20 @@ table {
     text-align: center;
 }
 
+/* setting background color of nav */
 nav  {
     background-image: linear-gradient(10deg, rgb(248, 248, 248),rgb(178, 235, 235),#80c3fa);
 }
 
+/* styling inside 'About' nav link */
+#nav-about {
+    text-align: center;
+    margin: 0 auto;
+    font-family: headerFont;
+    font-size: 26px;
+}
+
+/* styling photos */
 .aboutPhotos {
     height: 400px;
     width: 400px;
@@ -119,19 +105,33 @@ nav  {
     border-radius: 10px;
     border: 2px solid whitesmoke;
 }
-
-.carousel-indicators button {
-    display: inline;
-    margin-top: 100px;
-} 
+/* styling headers */
+h2 {
+    font-family: headerFont;
+    font-size: 36px;
+    margin: 20px 0px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+/* styling hr inside 'About' nav link */
+hr {
+    margin: 40px 0px;
+}
+/* carousel buttons size */
+.carousel-indicators button{
+    min-width: 140px;
+    margin:0px 50px 20px 50px;
+}
 
 .carousel-item span {
     text-decoration: underline;
 }
+
 #nav-profile > * { 
     margin: 50px auto;
 }
 
+/* stying error message on live reports  */
 #alertNoneReportCoins {
     width: 25%;
     text-align: center;
