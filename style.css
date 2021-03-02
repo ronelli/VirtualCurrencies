@@ -3,16 +3,15 @@ html, body {
 }
 
 .parallax {
-    /* background-image: url("assets/images/bitcoin.jpg"); */
-  /* Image height */
-  height: 40%;
-  /* Create the parallax scrolling effect */
-  position: relative;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: linear-gradient( rgba(255, 255, 255, 0.712) 0%,rgba(255,255,255,0.2) 100%), url("assets/images/bitcoin.jpg");
+    /* Image height */
+    height: 40%;
+    /* Create the parallax scrolling effect */
+    position: relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.712) 0%,rgba(255,255,255,0.2) 100%), url("assets/images/bitcoin.jpg");
 }
 
 h1 {
@@ -49,15 +48,21 @@ h1 {
     font-size: 26px;
 }
 
-#nav-about > h2 {
+h2 {
     font-family: headerFont;
     font-size: 36px;
     margin: 20px 0px;
     font-weight: bold;
     text-decoration: underline;
 }
-#nav-about > hr {
-    margin: 20px 0px;
+hr {
+    margin: 40px 0px;
+}
+
+.carousel-indicators button{
+    min-width: 140px;
+    /* height: 40px; */
+    margin:0px 50px 20px 50px;
 }
 
 #coinsContent {
@@ -97,7 +102,7 @@ table {
     left: 80%;
 }
 
-/* position content of model message in center */
+/* position content of modal message in center */
 #list-tab > * { 
     text-align: center;
 }
@@ -106,14 +111,22 @@ nav  {
     background-image: linear-gradient(10deg, rgb(248, 248, 248),rgb(178, 235, 235),#80c3fa);
 }
 
-#myPic {
-    width: 180px;
-    margin: 50px auto;
+.aboutPhotos {
+    height: 400px;
+    margin: 5% 0% 15% 0%;
     box-shadow: 1px 1px 30px black;
     border-radius: 10px;
     border: 2px solid whitesmoke;
 }
 
+.carousel-indicators button {
+    display: inline;
+    margin-top: 100px;
+} 
+
+.carousel-item span {
+    text-decoration: underline;
+}
 #nav-profile > * { 
     margin: 50px auto;
 }

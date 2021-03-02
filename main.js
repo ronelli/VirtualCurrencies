@@ -144,13 +144,13 @@ const MAX_CHECKED_COINS = 5;
                 state.checked.push(symbol);
             } 
             else {
-                displayModel(symbol);
+                displayModal(symbol);
             }
         }
     }
 
-    function displayModel(symbol) {
-        $("#modelBox").html(
+    function displayModal(symbol) {
+        $("#modalBox").html(
             `<div class="modal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -178,14 +178,15 @@ const MAX_CHECKED_COINS = 5;
                      </div>
                 </div>
             </div>`);
-        $('.modal').fadeIn(500).modal('show');
+            $('.modal').modal({backdrop: 'static', keyboard: false});
+            $('.modal').fadeIn(500).modal('show');
     }
 
-    $("#modelBox").on("click",".cancelAction",function() {
+    $("#modalBox").on("click",".cancelAction",function() {
         turnOffToggleButton($(this).val());
     })
 
-    $("#modelBox").on("click",".btn-primary", function() {
+    $("#modalBox").on("click",".btn-primary", function() {
         const newCoin = $(this).val();
         const selectedCoinTag = $(this).parent().parent().find(".active")[0];
         const coinToRemove = $(selectedCoinTag).attr("value");
