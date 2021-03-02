@@ -113,6 +113,7 @@ nav  {
 
 .aboutPhotos {
     height: 400px;
+    width: 400px;
     margin: 5% 0% 15% 0%;
     box-shadow: 1px 1px 30px black;
     border-radius: 10px;
